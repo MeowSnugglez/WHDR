@@ -11,7 +11,8 @@ wounds_threshold = st.number_input('Wounding on', min_value=1, max_value=6, valu
 rend = st.number_input('Rend', min_value=-6, max_value=6, value=0)  # Rend input field
 damage = st.number_input('Damage', min_value=1, value=1)  # Damage input field
 crits_threshold = st.number_input('Crit on ', min_value=1, max_value=6, value=6)  # Crits input field
-
+# Add a checkbox for the "Crit 2-Attack" feature
+crit_2_attack_enabled = st.checkbox('Crit 2-Attack')
 
 # Defender Profile
 st.subheader("Defender Profile")
@@ -41,7 +42,8 @@ if st.button('Calculate Average Successes'):
 
     # Calculate the average successes for hits, including critical hits
     hits_average_successes, crit_hits = calculate_average_successes(num_rolls, hits_threshold, crits_threshold)
-    
+    if crit_2_attack_enabled:
+        hits_average_successes += crit_hits
     # Calculate the average successes for wounds based on the hits' successes
     wounds_average_successes, _ = calculate_average_successes(hits_average_successes, wounds_threshold, crits_threshold)
     
@@ -68,6 +70,7 @@ if st.button('Calculate Average Successes'):
 
     
     # Display the results
+    st.write(f"Note: Number of Critical hits is based on average hits but not seperate from it. If results show 10 hits and 2 crits, it means 2 of the 10 hits are crits. ")
     st.write(f"Average hits successes: {hits_average_successes}")
     st.write(f"Critical hits: {crit_hits}")
     st.write(f"Average wounds successes: {wounds_average_successes}")
