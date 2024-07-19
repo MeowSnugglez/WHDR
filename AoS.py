@@ -71,8 +71,6 @@ if st.button('Calculate Average Successes'):
 
     
     # Display the results
-    st.write(f"Note: Number of Critical hits is based on average hits but not seperate from it. If results show 10 hits and 2 crits, it means 2 of the 10 hits are crits. ")
-    st.markdown("<br><hr><br>", unsafe_allow_html=True)
     st.write(f"Average hits successes: {hits_average_successes}")
     st.write(f"Critical hits: {crit_hits}")
     st.write(f"Average wounds successes: {wounds_average_successes}")
