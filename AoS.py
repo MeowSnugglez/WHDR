@@ -101,13 +101,12 @@ if st.button('Calculate Average Successes'):
     if crit_auto_wound_enabled:
         woundText += f" | Auto Wounds: {automatic_wounds} | Total: {total_wounds_before_saves}"
     st.write(woundText)
-
-
-
-
     st.markdown("<hr>", unsafe_allow_html=True)
+
+
+
     st.write(f"Saves")
-    st.write(f"Failed Saves: {total_wounds_after_saves}")
+    st.write(f"Successful: {total_wounds_before_saves - total_wounds_after_saves} | Failed Saves: {total_wounds_after_saves}")
 
     st.markdown("<hr>", unsafe_allow_html=True)
     st.write(f"Total damage before ward saves: {total_damage}")
