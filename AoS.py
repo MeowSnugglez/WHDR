@@ -82,8 +82,7 @@ if st.button('Calculate Average Successes'):
 
     
     # Display the results
-    st.write(f"Hits | Normal:{hits_average_successes - crit_hits} | Critical: {crit_hits}")
-    st.write(f"Total Hits after Crit Modifiers: {total_hits}")
+    st.write(f"Hits | Normal:{hits_average_successes - crit_hits} | Critical: {crit_hits} | Total after Crit Modifiers: {total_hits}")
     if crit_auto_wound_enabled:
         st.write(f"Auto Wounds: {automatic_wounds}")
     st.write(f"Wounds: {wounds_average_successes}")
