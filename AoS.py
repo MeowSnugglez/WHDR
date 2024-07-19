@@ -7,6 +7,7 @@ hits_threshold = st.number_input('Hits Threshold (4 or higher)', min_value=1, ma
 wounds_threshold = st.number_input('Wounds Threshold (3 or higher)', min_value=1, max_value=6, value=3)
 saves_threshold = st.number_input('Saves Threshold (remove 3 or higher)', min_value=1, max_value=6, value=3)
 damage = st.number_input('Damage per Unsaved Wound', min_value=1, value=1)  # Damage input field
+ward_threshold = st.number_input('Ward Save Threshold (remove 4 or higher)', min_value=1, max_value=6, value=4)  # Ward input field
 
 # Calculate the average successful rolls
 def calculate_average_successes(num_rolls, threshold, remove_success=False):
@@ -35,8 +36,12 @@ if st.button('Calculate Average Successes'):
     # Calculate total damage
     total_damage = unsaved_wounds_average_successes * damage
     
+    # Calculate the number of wounds that fail the ward save
+    ward_failures = calculate_average_successes(total_damage, ward_threshold, remove_success=True)
+    
     # Display the results
     st.write(f"Average hits successes: {hits_average_successes}")
     st.write(f"Average wounds successes: {wounds_average_successes}")
     st.write(f"Average unsaved wounds: {unsaved_wounds_average_successes}")
-    st.write(f"Total damage: {total_damage}")
+    st.write(f"Total damage before ward saves: {total_damage}")
+    st.write(f"Damage after ward saves: {ward_failures}")
