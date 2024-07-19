@@ -5,14 +5,14 @@ st.title("Meow's AoS Damage Calculator")
 
 #add a subtitle here saying attacker profile
 st.subheader("Attacker Profile")
-num_rolls = st.number_input('Number of Rolls', min_value=1, value=10)
-hits_threshold = st.number_input('Hits Threshold (4 or higher)', min_value=1, max_value=6, value=4)
-wounds_threshold = st.number_input('Wounds Threshold (3 or higher)', min_value=1, max_value=6, value=3)
-damage = st.number_input('Damage per Unsaved Wound', min_value=1, value=1)  # Damage input field
+num_rolls = st.number_input('Number of Attacks', min_value=1, value=10)
+hits_threshold = st.number_input('Hitting on', min_value=1, max_value=6, value=4)
+wounds_threshold = st.number_input('Wounding on', min_value=1, max_value=6, value=3)
+damage = st.number_input('Damage', min_value=1, value=1)  # Damage input field
 
 st.subheader("Defender Profile")
-saves_threshold = st.number_input('Saves Threshold (remove 3 or higher)', min_value=1, max_value=6, value=3)
-ward_threshold = st.number_input('Ward Save Threshold (remove 4 or higher)', min_value=1, max_value=6, value=4)  # Ward input field
+saves_threshold = st.number_input('Armor Save', min_value=1, max_value=6, value=3)
+ward_threshold = st.number_input('Ward', min_value=1, max_value=6, value=4)  # Ward input field
 
 # Calculate the average successful rolls
 def calculate_average_successes(num_rolls, threshold, remove_success=False):
