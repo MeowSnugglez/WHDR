@@ -66,11 +66,11 @@ if st.button('Calculate Average Successes'):
         # Calculate the average unsaved wounds based on the wounds' successes
         unsaved_wounds_average_successes, _ = calculate_average_successes(wounds_average_successes, adjusted_saves_threshold, crits_threshold, remove_success=True)
     
-    total_wounds = unsaved_wounds_average_successes
+    total_wounds_received = unsaved_wounds_average_successes
     if crit_auto_wound_enabled:
-        total_wounds += automatic_wounds
+        total_wounds_received += automatic_wounds
     # Calculate total damage
-    total_damage = total_wounds * damage
+    total_damage = total_wounds_received * damage
     
     # Calculate the number of wounds that fail the ward save
     if ward_threshold >= 7:
@@ -87,6 +87,6 @@ if st.button('Calculate Average Successes'):
     if crit_auto_wound_enabled:
         st.write(f"Auto Wounds: {automatic_wounds}")
     st.write(f"Wounds: {wounds_average_successes}")
-    st.write(f"Unsaved Wounds: {unsaved_wounds_average_successes}")
+    st.write(f"Unsaved Wounds: {total_wounds_received}")
     st.write(f"Total damage before ward saves: {total_damage}")
     st.write(f"Damage after ward saves: {ward_failures}")
