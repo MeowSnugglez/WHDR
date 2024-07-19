@@ -55,7 +55,9 @@ if st.button('Calculate Average Successes'):
         automatic_wounds = crit_hits
     # Calculate the average successes for wounds based on the hits' successes
     wounds_average_successes, _ = calculate_average_successes(total_hits, wounds_threshold, crits_threshold)
-    
+    total_wounds_before_saves = wounds_average_successes
+    if crit_auto_wound_enabled:
+        total_wounds_before_saves += automatic_wounds
     # Adjust the saves_threshold based on rend
     adjusted_saves_threshold = saves_threshold + rend
     # If the adjusted saves_threshold is 7 or higher, consider every armor save as unsuccessful
@@ -66,11 +68,11 @@ if st.button('Calculate Average Successes'):
         # Calculate the average unsaved wounds based on the wounds' successes
         unsaved_wounds_average_successes, _ = calculate_average_successes(wounds_average_successes, adjusted_saves_threshold, crits_threshold, remove_success=True)
     
-    total_wounds_received = unsaved_wounds_average_successes
+    total_wounds_after_saves = unsaved_wounds_average_successes
     if crit_auto_wound_enabled:
-        total_wounds_received += automatic_wounds
+        total_wounds_after_saves += automatic_wounds
     # Calculate total damage
-    total_damage = total_wounds_received * damage
+    total_damage = total_wounds_after_saves * damage
     
     # Calculate the number of wounds that fail the ward save
     if ward_threshold >= 7:
@@ -85,12 +87,21 @@ if st.button('Calculate Average Successes'):
     st.write(f"Hits")
     st.write(f"Normal:{hits_average_successes - crit_hits} | Critical: {crit_hits} | Total after Crit Modifiers: {total_hits}")
     st.markdown("<hr>", unsafe_allow_html=True)
+
+
     st.write(f"Wounds")
     woundText = f"Normal: {wounds_average_successes}"
     if crit_auto_wound_enabled:
-        woundText += f" | Auto Wounds: {automatic_wounds} | Total: {wounds_average_successes + automatic_wounds}"
+        woundText += f" | Auto Wounds: {automatic_wounds} | Total: {total_wounds_before_saves}"
     st.write(woundText)
+
+
+
+
     st.markdown("<hr>", unsafe_allow_html=True)
-    st.write(f"Total Wounds Received: {total_wounds_received}")
+    st.write(f"Saves")
+    st.write(f"Failed Saves: {total_wounds_after_saves}")
+
+    st.markdown("<hr>", unsafe_allow_html=True)
     st.write(f"Total damage before ward saves: {total_damage}")
     st.write(f"Damage after ward saves: {ward_failures}")
