@@ -1,3 +1,9 @@
+# a simple python application that calculates the chance of rolling certain numbers on a 6 sided die twice in a row
+#should be able to set the values of the dice and the number of rolls
+#values should be different between rolls
+#for instance, if you have 10 dice rolls, the first roll want to see how many dice on average using integers would be 4 or higher, after that the second roll would only be the number of dice that had 4 or higher on first roll  and second roll would check how many are 3 or higher
+
+
 import streamlit as st
 
 # Streamlit interface for input
@@ -12,7 +18,10 @@ def calculate_average_successes(num_rolls, threshold):
     probability_of_success = (7 - threshold) / 6.0
     # Calculate the expected number of successes
     expected_successes = num_rolls * probability_of_success
-    return expected_successes
+
+    rounded_successes = round(expected_successes)
+    return rounded_successes
+
 
 # Button to start calculation
 if st.button('Calculate Average Successes'):
