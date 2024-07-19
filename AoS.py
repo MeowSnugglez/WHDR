@@ -8,9 +8,10 @@ st.subheader("Attacker Profile")
 num_rolls = st.number_input('Number of Attacks', min_value=1, value=10)
 hits_threshold = st.number_input('Hitting on', min_value=1, max_value=6, value=4)
 wounds_threshold = st.number_input('Wounding on', min_value=1, max_value=6, value=3)
+rend = st.number_input('Rend', min_value=-6, max_value=6, value=0)  # Rend input field
 damage = st.number_input('Damage', min_value=1, value=1)  # Damage input field
 crits_threshold = st.number_input('Crit on ', min_value=1, max_value=6, value=6)  # Crits input field
-rend = st.number_input('Rend', min_value=-6, max_value=6, value=0)  # Rend input field
+
 
 # Defender Profile
 st.subheader("Defender Profile")
