@@ -39,7 +39,7 @@ def calculate_average_successes(num_rolls, threshold, crits_threshold, remove_su
 
 
 # Button to start calculation
-if st.button('Calculate Average Successes'):
+if st.button('Roll the Dice'):
 
 
     # Calculate the average successes for hits, including critical hits
@@ -127,5 +127,5 @@ if st.button('Calculate Average Successes'):
     else:
         st.write(f"Damage Before Ward: {total_damage}")
         st.write(f"Successful Wards: {total_damage - ward_failures}")
-        st.write(f"Damage taken: {ward_failures}")
+        st.write(f"Total Damage taken: {ward_failures}")
 
