@@ -6,6 +6,7 @@ num_rolls = st.number_input('Number of Rolls', min_value=1, value=10)
 hits_threshold = st.number_input('Hits Threshold (4 or higher)', min_value=1, max_value=6, value=4)
 wounds_threshold = st.number_input('Wounds Threshold (3 or higher)', min_value=1, max_value=6, value=3)
 saves_threshold = st.number_input('Saves Threshold (remove 3 or higher)', min_value=1, max_value=6, value=3)
+damage = st.number_input('Damage per Unsaved Wound', min_value=1, value=1)  # Damage input field
 
 # Calculate the average successful rolls
 def calculate_average_successes(num_rolls, threshold, remove_success=False):
@@ -31,7 +32,11 @@ if st.button('Calculate Average Successes'):
     # Calculate the average unsaved wounds based on the wounds' successes
     unsaved_wounds_average_successes = calculate_average_successes(wounds_average_successes, saves_threshold, remove_success=True)
     
+    # Calculate total damage
+    total_damage = unsaved_wounds_average_successes * damage
+    
     # Display the results
     st.write(f"Average hits successes: {hits_average_successes}")
     st.write(f"Average wounds successes: {wounds_average_successes}")
     st.write(f"Average unsaved wounds: {unsaved_wounds_average_successes}")
+    st.write(f"Total damage: {total_damage}")
