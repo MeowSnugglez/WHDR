@@ -36,6 +36,7 @@ def calculate_average_successes(num_rolls, threshold, crits_threshold, remove_su
     rounded_crit_hits = round(crit_hits)
     return rounded_outcomes, rounded_crit_hits
 
+st.write(f"Note: Number of Critical hits is based on average hits but not seperate from it. If results show 10 hits and 2 crits, it means 2 of the 10 hits are crits. ")
 # Button to start calculation
 if st.button('Calculate Average Successes'):
 
