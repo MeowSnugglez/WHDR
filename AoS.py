@@ -2,22 +2,31 @@ import streamlit as st
 
 # Streamlit interface for input
 st.title("Meow's AoS Damage Calculator")
+st.write(f"This is a simple calculator to determine the average damage output of a unit in Age of Sigmar. It does not simulate random rolls, but rather calculates the average number of successful rolls based on the input parameters. The calculator does not take into account any special rules or abilities that may modify the rolls. The calculator is intended for educational purposes only and should not be used as a substitute for the official rules.")
 
 # Attacker Profile
 st.subheader("Attacker Profile")
 num_rolls = st.number_input('Number of Attacks', min_value=1, value=10)
 hits_threshold = st.number_input('Hitting on', min_value=1, max_value=6, value=4)
-wounds_threshold = st.number_input('Wounding on', min_value=1, max_value=6, value=3)
+wounds_threshold = st.number_input('Wounding on', min_value=1, max_value=6, value=4)
 rend = st.number_input('Rend', min_value=-6, max_value=6, value=0)  # Rend input field
 damage = st.number_input('Damage', min_value=1, value=1)  # Damage input field
 crits_threshold = st.number_input('Crit on ', min_value=1, max_value=6, value=6)  # Crits input field
 # Add a checkbox for the "Crit 2-Attack" feature
 crit_2_attack_enabled = st.checkbox('Crit 2 Hits')
-crit_auto_wound_enabled = st.checkbox('Crit Auto-wound')
-crit_mortal_enabled = st.checkbox('Crit Mortal')
+crit_option = st.radio(
+    "Mortals / AutoWound",
+    ('None', 'Crit Auto-wound', 'Crit Mortal'),
+    index=0  # Default to 'None'
+)
+
+# Set flags based on the selected option
+crit_auto_wound_enabled = (crit_option == 'Crit Auto-wound')
+crit_mortal_enabled = (crit_option == 'Crit Mortal')
+
 # Defender Profile
 st.subheader("Defender Profile")
-saves_threshold = st.number_input('Armor Save', min_value=1, max_value=6, value=3)
+saves_threshold = st.number_input('Armor Save', min_value=1, max_value=6, value=4)
 ward_threshold = st.number_input('Ward', min_value=1, max_value=7, value=7)  # Adjust max_value if you want to allow values higher than 6
 
 # Calculate the average successful rolls
@@ -98,12 +107,12 @@ if st.button('Roll the Dice'):
 
     
     # Display the results
-    st.write(f"Hits")
+    st.write(f"**Hits**")
     st.write(f"Normal:{hits_average_successes - crit_hits} | Critical: {crit_hits} | Total after Crit Modifiers: {total_hits}")
     st.markdown("<hr>", unsafe_allow_html=True)
 
 
-    st.write(f"Wounds")
+    st.write(f"**Wounds**")
     woundText = f"Normal: {wounds_average_successes}"
     if crit_auto_wound_enabled:
         woundText += f" | Auto Wounds: {automatic_wounds} | Total: {total_wounds_before_saves}"
@@ -114,14 +123,14 @@ if st.button('Roll the Dice'):
 
 
 
-    st.write(f"Saves")
+    st.write(f"**Saves**")
     if crit_mortal_enabled:
             st.write(f"Successful: {successful_saves} | Failed: {failed_saves} | Failed + Mortals: {total_wounds_after_saves}")
     else:
         st.write(f"Successful: {successful_saves} | Failed: {failed_saves}")
     st.markdown("<hr>", unsafe_allow_html=True)
 
-    st.write(f"Damage")
+    st.write(f"**Damage**")
     if ward_threshold >= 7:
         st.write(f"Total damage taken: {total_damage}")
     else:
