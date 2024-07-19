@@ -116,9 +116,9 @@ if st.button('Calculate Average Successes'):
 
     st.write(f"Saves")
     if crit_mortal_enabled:
-            st.write(f"Successful: {successful_saves} | Failed: {failed_saves} | Total Wounds Taken: {total_wounds_after_saves}")
-
-    st.write(f"Successful: {successful_saves} | Failed: {failed_saves}")
+            st.write(f"Successful: {successful_saves} | Failed: {failed_saves} | Failed + Mortals: {total_wounds_after_saves}")
+    else:
+        st.write(f"Successful: {successful_saves} | Failed: {failed_saves}")
     st.markdown("<hr>", unsafe_allow_html=True)
 
     st.write(f"Damage")
