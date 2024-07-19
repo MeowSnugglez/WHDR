@@ -15,8 +15,7 @@ rend = st.number_input('Rend', min_value=-6, max_value=6, value=0)  # Rend input
 # Defender Profile
 st.subheader("Defender Profile")
 saves_threshold = st.number_input('Armor Save', min_value=1, max_value=6, value=3)
-ward_input = st.text_input('Ward', value='', max_chars=1, help='Enter a value between 1 and 6')
-ward_threshold = int(ward_input) if ward_input.isdigit() and 1 <= int(ward_input) <= 6 else None
+ward_threshold = st.number_input('Ward', min_value=1, max_value=6, value=4)  # Ward input field
 
 # Calculate the average successful rolls
 def calculate_average_successes(num_rolls, threshold, crits_threshold, remove_success=False):
