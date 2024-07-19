@@ -59,12 +59,12 @@ if st.button('Calculate Average Successes'):
     
     # Calculate the number of wounds that fail the ward save
 if ward_threshold >= 7:
-    # If Ward is 7 or greater, it takes the value of unsaved_wounds_average_successes directly
-    final_damage = unsaved_wounds_average_successes
+    # If the ward value is 7 or greater, all damage bypasses the ward save
+    ward_failures = total_damage
 else:
-    # Calculate the number of wounds that fail the Ward save
-    ward_failures, _ = calculate_average_successes(unsaved_wounds_average_successes, ward_threshold, crits_threshold, remove_success=True)
-    final_damage = ward_failures
+    # Calculate the number of wounds that fail the ward save
+    ward_failures, _ = calculate_average_successes(total_damage, ward_threshold, crits_threshold, remove_success=True)
+
     
     # Display the results
     st.write(f"Average hits successes: {hits_average_successes}")
@@ -72,4 +72,4 @@ else:
     st.write(f"Average wounds successes: {wounds_average_successes}")
     st.write(f"Average unsaved wounds: {unsaved_wounds_average_successes}")
     st.write(f"Total damage before ward saves: {total_damage}")
-    st.write(f"Damage after ward saves: {final_damage}")
+    st.write(f"Damage after ward saves: {ward_failures}")
