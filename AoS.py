@@ -107,12 +107,12 @@ if st.button('Roll the Dice'):
 
     
     # Display the results
-    st.write(f"Hits")
+    st.write(f"**Hits**")
     st.write(f"Normal:{hits_average_successes - crit_hits} | Critical: {crit_hits} | Total after Crit Modifiers: {total_hits}")
     st.markdown("<hr>", unsafe_allow_html=True)
 
 
-    st.write(f"Wounds")
+    st.write(f"**Wounds**")
     woundText = f"Normal: {wounds_average_successes}"
     if crit_auto_wound_enabled:
         woundText += f" | Auto Wounds: {automatic_wounds} | Total: {total_wounds_before_saves}"
@@ -123,14 +123,14 @@ if st.button('Roll the Dice'):
 
 
 
-    st.write(f"Saves")
+    st.write(f"**Saves**")
     if crit_mortal_enabled:
             st.write(f"Successful: {successful_saves} | Failed: {failed_saves} | Failed + Mortals: {total_wounds_after_saves}")
     else:
         st.write(f"Successful: {successful_saves} | Failed: {failed_saves}")
     st.markdown("<hr>", unsafe_allow_html=True)
 
-    st.write(f"Damage")
+    st.write(f"**Damage**")
     if ward_threshold >= 7:
         st.write(f"Total damage taken: {total_damage}")
     else:
