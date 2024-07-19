@@ -13,8 +13,16 @@ damage = st.number_input('Damage', min_value=1, value=1)  # Damage input field
 crits_threshold = st.number_input('Crit on ', min_value=1, max_value=6, value=6)  # Crits input field
 # Add a checkbox for the "Crit 2-Attack" feature
 crit_2_attack_enabled = st.checkbox('Crit 2 Hits')
-crit_auto_wound_enabled = st.checkbox('Crit Auto-wound')
-crit_mortal_enabled = st.checkbox('Crit Mortal')
+crit_option = st.radio(
+    "Mortals / AutoWound",
+    ('None', 'Crit Auto-wound', 'Crit Mortal'),
+    index=0  # Default to 'None'
+)
+
+# Set flags based on the selected option
+crit_auto_wound_enabled = (crit_option == 'Crit Auto-wound')
+crit_mortal_enabled = (crit_option == 'Crit Mortal')
+
 # Defender Profile
 st.subheader("Defender Profile")
 saves_threshold = st.number_input('Armor Save', min_value=1, max_value=6, value=3)
