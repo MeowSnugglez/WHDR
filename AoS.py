@@ -70,8 +70,9 @@ if st.button('Calculate Average Successes'):
 
     
     # Display the results
+    st.write(f"Note: Number of Critical hits is based on average hits but not seperate from it. If results show 10 hits and 2 crits, it means 2 of the 10 hits are crits. ")
     st.write(f"Average hits successes: {hits_average_successes}")
-    st.write(f"Critical hits (not seperate from average hits: {crit_hits}")
+    st.write(f"Critical hits: {crit_hits}")
     st.write(f"Average wounds successes: {wounds_average_successes}")
     st.write(f"Average unsaved wounds: {unsaved_wounds_average_successes}")
     st.write(f"Total damage before ward saves: {total_damage}")
