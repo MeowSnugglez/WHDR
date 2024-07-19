@@ -12,8 +12,9 @@ rend = st.number_input('Rend', min_value=-6, max_value=6, value=0)  # Rend input
 damage = st.number_input('Damage', min_value=1, value=1)  # Damage input field
 crits_threshold = st.number_input('Crit on ', min_value=1, max_value=6, value=6)  # Crits input field
 # Add a checkbox for the "Crit 2-Attack" feature
-crit_2_attack_enabled = st.checkbox('Crit 2-Attack')
-
+crit_2_attack_enabled = st.checkbox('Crit 2 Hits')
+crit_auto_wound_enabled = st.checkbox('Crit Auto-wound')
+crit_mortal_enabled = st.checkbox('Crit Mortal')
 # Defender Profile
 st.subheader("Defender Profile")
 saves_threshold = st.number_input('Armor Save', min_value=1, max_value=6, value=3)
@@ -44,8 +45,14 @@ if st.button('Calculate Average Successes'):
     # Calculate the average successes for hits, including critical hits
     hits_average_successes, crit_hits = calculate_average_successes(num_rolls, hits_threshold, crits_threshold)
     total_hits = hits_average_successes
+    automatic_wounds = 0
     if crit_2_attack_enabled:
         total_hits += crit_hits
+
+    #Remove auto wounds from total hits    
+    if crit_auto_wound_enabled:
+        total_hits -= crit_hits
+        automatic_wounds = crit_hits
     # Calculate the average successes for wounds based on the hits' successes
     wounds_average_successes, _ = calculate_average_successes(total_hits, wounds_threshold, crits_threshold)
     
@@ -59,8 +66,11 @@ if st.button('Calculate Average Successes'):
         # Calculate the average unsaved wounds based on the wounds' successes
         unsaved_wounds_average_successes, _ = calculate_average_successes(wounds_average_successes, adjusted_saves_threshold, crits_threshold, remove_success=True)
     
+    total_wounds = unsaved_wounds_average_successes
+    if crit_auto_wound_enabled:
+        total_wounds += automatic_wounds
     # Calculate total damage
-    total_damage = unsaved_wounds_average_successes * damage
+    total_damage = total_wounds * damage
     
     # Calculate the number of wounds that fail the ward save
     if ward_threshold >= 7:
@@ -74,6 +84,8 @@ if st.button('Calculate Average Successes'):
     # Display the results
     st.write(f"Hits | Normal:{hits_average_successes - crit_hits} | Critical: {crit_hits}")
     st.write(f"Total Hits after Crit Modifiers: {total_hits}")
+    if crit_auto_wound_enabled:
+        st.write(f"Auto Wounds: {automatic_wounds}")
     st.write(f"Wounds: {wounds_average_successes}")
     st.write(f"Unsaved Wounds: {unsaved_wounds_average_successes}")
     st.write(f"Total damage before ward saves: {total_damage}")
