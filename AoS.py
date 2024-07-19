@@ -10,6 +10,7 @@ hits_threshold = st.number_input('Hitting on', min_value=1, max_value=6, value=4
 wounds_threshold = st.number_input('Wounding on', min_value=1, max_value=6, value=3)
 damage = st.number_input('Damage', min_value=1, value=1)  # Damage input field
 crits_threshold = st.number_input('Crits', min_value=1, max_value=6, value=6)  # Crits input field
+rend = st.number_input('Rend', min_value=-6, max_value=6, value=0)  # Rend input field
 
 # Defender Profile
 st.subheader("Defender Profile")
@@ -17,7 +18,13 @@ saves_threshold = st.number_input('Armor Save', min_value=1, max_value=6, value=
 ward_threshold = st.number_input('Ward', min_value=1, max_value=6, value=4)  # Ward input field
 
 # Calculate the average successful rolls
-def calculate_average_successes(num_rolls, threshold, crits_threshold, remove_success=False):
+def calculate_average_successes(num_rolls, threshold, crits_threshold, rend=0, remove_success=False):
+    # Adjust the threshold for rend if applicable
+    if rend != 0 and not remove_success:
+        threshold += rend
+        if threshold >= 7:  # If the adjusted threshold is 7 or higher, consider it an automatic failure
+            return 0, 0
+
     # Calculate the probability of success or failure for a single roll
     if remove_success:
         probability = (threshold - 1) / 6.0  # Probability of failure (rolls below the threshold)
@@ -41,8 +48,8 @@ if st.button('Calculate Average Successes'):
     # Calculate the average successes for wounds based on the hits' successes
     wounds_average_successes, _ = calculate_average_successes(hits_average_successes, wounds_threshold, crits_threshold)
     
-    # Calculate the average unsaved wounds based on the wounds' successes
-    unsaved_wounds_average_successes, _ = calculate_average_successes(wounds_average_successes, saves_threshold, crits_threshold, remove_success=True)
+    # Calculate the average unsaved wounds based on the wounds' successes, adjusting for rend
+    unsaved_wounds_average_successes, _ = calculate_average_successes(wounds_average_successes, saves_threshold, crits_threshold, rend, remove_success=True)
     
     # Calculate total damage
     total_damage = unsaved_wounds_average_successes * damage
