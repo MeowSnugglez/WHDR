@@ -105,9 +105,13 @@ if st.button('Calculate Average Successes'):
 
 
 
-    st.write(f"Saves")
-    st.write(f"Successful: {total_wounds_before_saves - total_wounds_after_saves} | Failed Saves: {total_wounds_after_saves}")
+    st.write(f"Saves + Damage")
+    st.write(f"Successful: {total_wounds_before_saves - total_wounds_after_saves} | Failed: {total_wounds_after_saves}")
 
-    st.markdown("<hr>", unsafe_allow_html=True)
-    st.write(f"Total damage before ward saves: {total_damage}")
-    st.write(f"Damage after ward saves: {ward_failures}")
+    if ward_threshold >= 7:
+        st.write(f"Total damage: {total_damage}")
+    else:
+        st.write(f"Damage Before Ward: {total_damage}")
+        st.write(f"Successful Wards: {total_damage - ward_failures}")
+        st.write(f"Damage taken: {ward_failures}")
+
