@@ -54,6 +54,11 @@ if st.button('Calculate Average Successes'):
         total_hits -= crit_hits
         automatic_wounds = crit_hits
 
+    #Remove mortal wounds from total hits    
+    if crit_mortal_enabled:
+        total_hits -= crit_hits
+        mortal_wounds = crit_hits
+
 
 
 
@@ -74,8 +79,8 @@ if st.button('Calculate Average Successes'):
         unsaved_wounds_average_successes, _ = calculate_average_successes(total_wounds_before_saves, adjusted_saves_threshold, crits_threshold, remove_success=True)
     
     total_wounds_after_saves = unsaved_wounds_average_successes
-   # if crit_mortal_enabled:
-    #    total_wounds_after_saves += automatic_wounds
+    if crit_mortal_enabled:
+       total_wounds_after_saves += mortal_wounds
     # Calculate total damage
 
 
@@ -100,6 +105,8 @@ if st.button('Calculate Average Successes'):
     woundText = f"Normal: {wounds_average_successes}"
     if crit_auto_wound_enabled:
         woundText += f" | Auto Wounds: {automatic_wounds} | Total: {total_wounds_before_saves}"
+    if crit_mortal_enabled:
+        woundText += f" | Mortal Wounds: {mortal_wounds}"
     st.write(woundText)
     st.markdown("<hr>", unsafe_allow_html=True)
 
@@ -111,7 +118,7 @@ if st.button('Calculate Average Successes'):
 
     st.write(f"Damage")
     if ward_threshold >= 7:
-        st.write(f"Total damage: {total_damage}")
+        st.write(f"Total damage taken: {total_damage}")
     else:
         st.write(f"Damage Before Ward: {total_damage}")
         st.write(f"Successful Wards: {total_damage - ward_failures}")
