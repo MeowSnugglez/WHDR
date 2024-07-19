@@ -43,10 +43,11 @@ if st.button('Calculate Average Successes'):
 
     # Calculate the average successes for hits, including critical hits
     hits_average_successes, crit_hits = calculate_average_successes(num_rolls, hits_threshold, crits_threshold)
+    total_hits = hits_average_successes
     if crit_2_attack_enabled:
-        hits_average_successes += crit_hits
+        total_hits += crit_hits
     # Calculate the average successes for wounds based on the hits' successes
-    wounds_average_successes, _ = calculate_average_successes(hits_average_successes, wounds_threshold, crits_threshold)
+    wounds_average_successes, _ = calculate_average_successes(total_hits, wounds_threshold, crits_threshold)
     
     # Adjust the saves_threshold based on rend
     adjusted_saves_threshold = saves_threshold + rend
@@ -73,6 +74,8 @@ if st.button('Calculate Average Successes'):
     # Display the results
     st.write(f"Average hits successes: {hits_average_successes}")
     st.write(f"Critical hits: {crit_hits}")
+    if crit_2_attack_enabled:
+            st.write(f"Total Hits with Crit Modifiers: {crit_hits}")
     st.write(f"Average wounds successes: {wounds_average_successes}")
     st.write(f"Average unsaved wounds: {unsaved_wounds_average_successes}")
     st.write(f"Total damage before ward saves: {total_damage}")
