@@ -78,6 +78,8 @@ if st.button('Calculate Average Successes'):
         # Calculate the average unsaved wounds based on the wounds' successes
         unsaved_wounds_average_successes, _ = calculate_average_successes(total_wounds_before_saves, adjusted_saves_threshold, crits_threshold, remove_success=True)
     
+    failed_saves = unsaved_wounds_average_successes
+    successful_saves = total_wounds_before_saves - failed_saves
     total_wounds_after_saves = unsaved_wounds_average_successes
     if crit_mortal_enabled:
        total_wounds_after_saves += mortal_wounds
@@ -113,7 +115,10 @@ if st.button('Calculate Average Successes'):
 
 
     st.write(f"Saves")
-    st.write(f"Successful: {total_wounds_before_saves - total_wounds_after_saves} | Failed: {total_wounds_after_saves}")
+    if crit_mortal_enabled:
+            st.write(f"Successful: {successful_saves} | Failed: {failed_saves} | Total Wounds Taken: {total_wounds_after_saves}")
+
+    st.write(f"Successful: {successful_saves} | Failed: {failed_saves}")
     st.markdown("<hr>", unsafe_allow_html=True)
 
     st.write(f"Damage")
