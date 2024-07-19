@@ -36,7 +36,7 @@ def calculate_average_successes(num_rolls, threshold, crits_threshold, remove_su
     rounded_crit_hits = round(crit_hits)
     return rounded_outcomes, rounded_crit_hits
 
-st.write(f"Note: Number of Critical hits is based on average hits but not seperate from it. If results show 10 hits and 2 crits, it means 2 of the 10 hits are crits. ")
+
 # Button to start calculation
 if st.button('Calculate Average Successes'):
 
@@ -73,9 +73,7 @@ if st.button('Calculate Average Successes'):
     
     # Display the results
     st.write(f"Hits | Normal:{hits_average_successes - crit_hits} | Critical: {crit_hits}")
-    st.write(f"Total Hits (With Crit Modifiers if enabled): {total_hits}")
-    if crit_2_attack_enabled:
-            st.write(f"Total Hits after Crit Modifiers: {total_hits}")
+    st.write(f"Total Hits after Crit Modifiers: {total_hits}")
     st.write(f"Average wounds successes: {wounds_average_successes}")
     st.write(f"Average unsaved wounds: {unsaved_wounds_average_successes}")
     st.write(f"Total damage before ward saves: {total_damage}")
