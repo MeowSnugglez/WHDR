@@ -72,7 +72,7 @@ if st.button('Calculate Average Successes'):
 
     
     # Display the results
-    st.write(f"Average hits successes: {hits_average_successes}")
+    st.write(f"Hits | Normal:{hits_average_successes - crit_hits} Critical Hits: {crit_hits}")
     st.write(f"Critical hits: {crit_hits}")
     if crit_2_attack_enabled:
             st.write(f"Total Hits after Crit Modifiers: {total_hits}")
