@@ -88,7 +88,7 @@ if st.button('Calculate Average Successes'):
     st.write(f"Wounds")
     woundText = f"Normal: {wounds_average_successes}"
     if crit_auto_wound_enabled:
-        woundText += f", | Auto Wounds: {automatic_wounds}"
+        woundText += f" | Auto Wounds: {automatic_wounds} | Total: {wounds_average_successes + automatic_wounds}"
     st.write(woundText)
     st.markdown("<hr>", unsafe_allow_html=True)
     st.write(f"Total Wounds Received: {total_wounds_received}")
