@@ -26,34 +26,33 @@ def calculate_average_successes(num_rolls, threshold, crits_threshold, remove_su
     # Calculate the expected number of successes or failures
     expected_outcomes = num_rolls * probability
 
-    # Calculate critical hits if applicable
-    if crits_threshold <= 6:
-        # Assuming critical hits are included in the successful hits calculation for now
-        crit_hits = num_rolls / 6.0 * (7 - crits_threshold)  # Adjust based on crits_threshold
-        expected_outcomes += crit_hits  # Add critical hits to expected outcomes
+    # Calculate critical hits separately
+    crit_hits = num_rolls * (1 / 6.0) * (7 - crits_threshold) if crits_threshold <= 6 else 0
 
     rounded_outcomes = round(expected_outcomes)
-    return rounded_outcomes
+    rounded_crit_hits = round(crit_hits)
+    return rounded_outcomes, rounded_crit_hits
 
 # Button to start calculation
 if st.button('Calculate Average Successes'):
     # Calculate the average successes for hits, including critical hits
-    hits_average_successes = calculate_average_successes(num_rolls, hits_threshold, crits_threshold)
+    hits_average_successes, crit_hits = calculate_average_successes(num_rolls, hits_threshold, crits_threshold)
     
     # Calculate the average successes for wounds based on the hits' successes
-    wounds_average_successes = calculate_average_successes(hits_average_successes, wounds_threshold, crits_threshold)
+    wounds_average_successes, _ = calculate_average_successes(hits_average_successes, wounds_threshold, crits_threshold)
     
     # Calculate the average unsaved wounds based on the wounds' successes
-    unsaved_wounds_average_successes = calculate_average_successes(wounds_average_successes, saves_threshold, crits_threshold, remove_success=True)
+    unsaved_wounds_average_successes, _ = calculate_average_successes(wounds_average_successes, saves_threshold, crits_threshold, remove_success=True)
     
     # Calculate total damage
     total_damage = unsaved_wounds_average_successes * damage
     
     # Calculate the number of wounds that fail the ward save
-    ward_failures = calculate_average_successes(total_damage, ward_threshold, crits_threshold, remove_success=True)
+    ward_failures, _ = calculate_average_successes(total_damage, ward_threshold, crits_threshold, remove_success=True)
     
     # Display the results
     st.write(f"Average hits successes: {hits_average_successes}")
+    st.write(f"Critical hits: {crit_hits}")
     st.write(f"Average wounds successes: {wounds_average_successes}")
     st.write(f"Average unsaved wounds: {unsaved_wounds_average_successes}")
     st.write(f"Total damage before ward saves: {total_damage}")
