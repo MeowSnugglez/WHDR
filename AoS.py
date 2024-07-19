@@ -2,7 +2,7 @@ import streamlit as st
 
 # Streamlit interface for input
 st.title("Meow's AoS Damage Calculator")
-st.write(f"This is a simple calculator to determine the average damage output of a unit in Age of Sigmar. It does not simulate random rolls, but rather calculates the average number of successful rolls based on the input parameters. The calculator does not take into account any special rules or abilities that may modify the rolls. The calculator is intended for educational purposes only and should not be used as a substitute for the official rules.")
+st.write(f"This is a simple calculator to determine the average damage output of a unit in Age of Sigmar. It does not simulate random rolls, but rather calculates the average number of successful rolls based on the input parameters. The calculator does not take into account any special rules or abilities that may modify the rolls. The calculator is intended for educational purposes only and should not be used as a substitute for the official rules. I definitely did not have AI write this blurb for me. Meow.")
 
 # Attacker Profile
 st.subheader("Attacker Profile")
