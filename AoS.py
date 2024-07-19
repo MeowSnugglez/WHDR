@@ -8,7 +8,7 @@ st.write(f"This is a simple calculator to determine the average damage output of
 st.subheader("Attacker Profile")
 num_rolls = st.number_input('Number of Attacks', min_value=1, value=10)
 hits_threshold = st.number_input('Hitting on', min_value=1, max_value=6, value=4)
-wounds_threshold = st.number_input('Wounding on', min_value=1, max_value=6, value=3)
+wounds_threshold = st.number_input('Wounding on', min_value=1, max_value=6, value=4)
 rend = st.number_input('Rend', min_value=-6, max_value=6, value=0)  # Rend input field
 damage = st.number_input('Damage', min_value=1, value=1)  # Damage input field
 crits_threshold = st.number_input('Crit on ', min_value=1, max_value=6, value=6)  # Crits input field
@@ -26,7 +26,7 @@ crit_mortal_enabled = (crit_option == 'Crit Mortal')
 
 # Defender Profile
 st.subheader("Defender Profile")
-saves_threshold = st.number_input('Armor Save', min_value=1, max_value=6, value=3)
+saves_threshold = st.number_input('Armor Save', min_value=1, max_value=6, value=4)
 ward_threshold = st.number_input('Ward', min_value=1, max_value=7, value=7)  # Adjust max_value if you want to allow values higher than 6
 
 # Calculate the average successful rolls
